@@ -107,7 +107,7 @@ instalar_pacotes_pacman()
   for pacote in ${PACOTES_PACMAN[@]}; do
     if ! pacman -Q | grep -q $pacote; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pacote...${SEM_COR}"
-      yes "s" | sudo pacman -S $pacote
+      printf '%s\n' 1 s | sudo pacman -Sq $pacote &> /dev/null
       if pacman -Q | grep -q $pacote; then
         echo -e "${VERDE}[INFO] - O pacote $pacote foi instalado.${SEM_COR}"
       else
@@ -123,8 +123,6 @@ add_repositorios_flatpak()
 {
   echo -e "${AMARELO}[INFO] - Adicionando repositórios flatpak com o remote-add...${SEM_COR}"
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-#  flatpak remote-add --from gnome https://sdk.gnome.org/gnome.flatpakrepo # not working
-#  flatpak remote-add --from gnome-apps https://sdk.gnome.org/gnome-apps.flatpakrepo # not working
   echo -e "${VERDE}[INFO] - Nada mais a adicionar.${SEM_COR}"
 }
 
@@ -134,7 +132,7 @@ instalar_pacotes_flatpak()
   for pacote in ${PACOTES_FLATPAK[@]}; do
     if ! flatpak list | grep -q $pacote; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pacote...${SEM_COR}"
-      yes "y" | sudo flatpak install flathub $pacote
+      sudo flatpak install -y flathub $pacote &> /dev/null
       if flatpak list | grep -q $pacote; then
         echo -e "${VERDE}[INFO] - O pacote $pacote foi instalado.${SEM_COR}"
       else
@@ -158,7 +156,7 @@ instalar_pacotes_git()
       cd $DIRETORIO_PACOTES_GIT/$url_extraida
       echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
       makepkg -s &> /dev/null
-      yes "s" | sudo pacman -U *.pkg.tar.zst
+      printf '%s\n' s | sudo pacman -U *.pkg.tar.zst &> /dev/null
       if pacman -Q | grep -iq $url_extraida; then
         echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
       else
@@ -176,12 +174,13 @@ instalar_pacotes_tar()
   [[ ! -d "$DIRETORIO_PACOTES_TAR" ]] && mkdir "$DIRETORIO_PACOTES_TAR"
   for url in ${PACOTES_TAR[@]}; do
     cd $DIRETORIO_PACOTES_TAR
-    echo -e "${AMARELO}[INFO] - Baixando o pacote ${url##*/} ...${SEM_COR}"
+    echo -e "${AMARELO}[INFO] - Baixando o pacote ${url##*/}...${SEM_COR}"
+    echo -e "${AMARELO}[INFO] - Isso pode levar alguns minutos...${SEM_COR}"
     wget -c $url -P $DIRETORIO_PACOTES_TAR/${url##*/} &> /dev/null
     cd $DIRETORIO_PACOTES_TAR/${url##*/}
-    echo -e "${AMARELO}[INFO] - Descompactando o pacote ${url##*/} ...${SEM_COR}"
+    echo -e "${AMARELO}[INFO] - Descompactando o pacote ${url##*/}...${SEM_COR}"
     tar -vzxf ${url##*/} &> /dev/null
-    echo -e "${AMARELO}[INFO] - Instalando o pacote ${url##*/} ...${SEM_COR}"
+    echo -e "${AMARELO}[INFO] - Instalando o pacote ${url##*/}...${SEM_COR}"
     ./*.run
     echo -e "${VERDE}[INFO] - O pacote ${url##*/} foi instalado.${SEM_COR}"
   done
@@ -195,15 +194,15 @@ baixar_wallpapers()
   wget -c $WALLPAPER_ALBUM -P $DIRETORIO_WALLPAPERS &> /dev/null
   cd $DIRETORIO_WALLPAPERS
   echo -e "${AMARELO}[INFO] - Descompactando pacote para "$HOME/.local/share/backgrounds/"...${SEM_COR}"
-  unzip *.zip -d $HOME/.local/share/backgrounds/
+  unzip -qj *.zip -d $HOME/.local/share/backgrounds/
   echo -e "${VERDE}[INFO] - Wallpapers baixados com sucesso! Não se esqueça de escolher um bem legal em Configurações -> Plano de fundo... ${SEM_COR}"
 }
 
 atualizacao_limpeza_sistema()
 {
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
-  yes "y" | flatpak update -y
-  yes "s" | sudo pacman -Syu
+  flatpak update -y &> /dev/null
+  printf '%s\n' s | sudo pacman -Syu &> /dev/null
   sudo rm -r $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
   neofetch
   echo -e "${VERDE}[INFO] - Configuração concluída!${SEM_COR}"
