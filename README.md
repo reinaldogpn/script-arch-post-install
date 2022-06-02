@@ -1,4 +1,4 @@
-# script_post_install_arch.sh
+# arch-post-install.sh
 
 * Autor: Reinaldo G. P. Neto
 
