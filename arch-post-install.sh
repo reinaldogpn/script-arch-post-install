@@ -2,7 +2,7 @@
 #
 # script_post_install_arch.sh - Faz as configurações pós instalação do Arch Linux (Gnome).
 # ------------------------------------------------------------------------ #
-# Autor:	Reinaldo G. P. Neto
+# Autor:	  Reinaldo G. P. Neto
 # Github: 	github.com/reinaldogpn
 # ------------------------------------------------------------------------ #
 # O QUE ELE FAZ?
