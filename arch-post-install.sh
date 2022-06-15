@@ -212,7 +212,6 @@ atualizacao_limpeza_sistema()
 
 # ================================================================================================================================================== #
 # *** Execução ***
-configurar_sistema
 instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
