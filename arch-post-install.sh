@@ -23,7 +23,6 @@
 # *** VARIÁVEIS ***
 PACOTES_PACMAN=(
   flatpak
-  libreoffice
   qbittorrent
   thunderbird
   neofetch
@@ -42,6 +41,7 @@ PACOTES_FLATPAK=(
   io.atom.Atom
   io.github.mimbrero.WhatsAppDesktop
   org.codeblocks.codeblocks
+  org.onlyoffice.desktopeditors
   org.videolan.VLC
   org.gimp.GIMP
   org.inkscape.Inkscape
