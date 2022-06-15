@@ -16,8 +16,10 @@
 # ------------------------------------------------------------------------ #
 # Changelog:
 #
-#   v1.0 30/05/2022, Reinaldo Gonçalves:
+#   v1.0 30/05/2022, reinaldogpn:
 #     - Primeira versão.
+#   v2.0 15/06/2022, reinaldogpn:
+#     - Diversas correções no script e adição de uma nova função para instalar temas adicionais.
 #
 # ================================================================================================================================================== #
 # *** VARIÁVEIS ***
@@ -35,10 +37,10 @@ PACOTES_FLATPAK=(
   com.google.Chrome
   com.spotify.Client
   com.discordapp.Discord
-  com.valvesoftware.Steam
-  com.mojang.Minecraft
+#  com.valvesoftware.Steam
+#  com.mojang.Minecraft
   com.visualstudio.code
-  io.atom.Atom
+#  io.atom.Atom
   io.github.mimbrero.WhatsAppDesktop
   org.codeblocks.codeblocks
   org.onlyoffice.desktopeditors
@@ -90,24 +92,13 @@ fi
 
 # ================================================================================================================================================== #
 # *** FUNÇÕES ***
-configurar_sistema() # Configurações que faço logo após instalar o Arch Linux, talvez seja opcional...
-{
-  echo -e "${AMARELO}[INFO] - Aplicando configurações de sistema... ${SEM_COR}"
-  sudo ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-  sudo hwclock --systohc
-  sudo hostnamectl set-hostname arch
-  sudo echo arch >> /etc/hostname
-  sudo echo -e "127.0.0.1 localhost.localdomain localhost \n::1 localhost.localdomain localhost \n127.0.0.1 arch.localdomain arch" >> /etc/hosts
-  echo -e "${VERDE}[INFO] - Configurações de região, data/hora e rede aplicadas.${SEM_COR}"
-}
-
 instalar_pacotes_pacman()
 {
   echo -e "${AMARELO}[INFO] - Instalando pacotes pacman...${SEM_COR}"
   for pacote in ${PACOTES_PACMAN[@]}; do
     if ! pacman -Q | grep -q $pacote; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pacote...${SEM_COR}"
-      printf '%s\n' 1 s | sudo pacman -Sq $pacote &> /dev/null
+      sudo pacman -S --noconfirm $pacote &> /dev/null
       if pacman -Q | grep -q $pacote; then
         echo -e "${VERDE}[INFO] - O pacote $pacote foi instalado.${SEM_COR}"
       else
@@ -155,8 +146,8 @@ instalar_pacotes_git()
       git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
       cd $DIRETORIO_PACOTES_GIT/$url_extraida
       echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
-      makepkg -s &> /dev/null
-      printf '%s\n' s | sudo pacman -U *.pkg.tar.zst &> /dev/null
+      makepkg -s --noconfirm &> /dev/null
+      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
       if pacman -Q | grep -iq $url_extraida; then
         echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
       else
@@ -187,8 +178,15 @@ instalar_pacotes_tar()
   echo -e "${VERDE}[INFO] - Pacotes .tar instalados com sucesso.${SEM_COR}"
 }
 
-baixar_wallpapers()
+instalar_temas_adicionais()
 {
+  echo -e "${AMARELO}[INFO] - Instalando temas e fontes adicionais...${SEM_COR}"
+  sudo pacman -S --noconfirm ttf-ubuntu-font-family arc-gtk-theme arc-solid-gtk-theme gnome-themes-extra gtk-engine-murrine &> /dev/null
+  git clone https://github.com/horst3180/arc-icon-theme --depth 1 &> /dev/null
+  cd arc-icon-theme
+  ./autogen.sh --prefix=/usr
+  sudo make -s install
+  echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados...${SEM_COR}"
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
   wget -c $WALLPAPER_ALBUM -P $DIRETORIO_WALLPAPERS &> /dev/null
@@ -202,7 +200,7 @@ atualizacao_limpeza_sistema()
 {
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
   flatpak update -y &> /dev/null
-  printf '%s\n' s | sudo pacman -Syu &> /dev/null
+  sudo pacman -Syu --noconfirm &> /dev/null
   sudo rm -r $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
   neofetch
   echo -e "${VERDE}[INFO] - Configuração concluída!${SEM_COR}"
@@ -220,6 +218,6 @@ add_repositorios_flatpak
 instalar_pacotes_flatpak
 instalar_pacotes_git
 instalar_pacotes_tar
-baixar_wallpapers
+instalar_temas_adicionais
 atualizacao_limpeza_sistema
 # ================================================================================================================================================== #
