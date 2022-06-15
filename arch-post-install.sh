@@ -19,10 +19,13 @@
 #   v1.0 30/05/2022, reinaldogpn:
 #     - Primeira versão.
 #   v2.0 15/06/2022, reinaldogpn:
-#     - Diversas correções no script e adição de uma nova função para instalar temas adicionais.
+#     - Diversas correções no script e adição de uma nova função para instalar temas adicionais, além do suporte ao Yay.
 #
 # ================================================================================================================================================== #
 # *** VARIÁVEIS ***
+
+PACOTE_YAY="https://aur.archlinux.org/yay.git"
+
 PACOTES_PACMAN=(
   flatpak
   qbittorrent
@@ -37,24 +40,30 @@ PACOTES_FLATPAK=(
   com.google.Chrome
   com.spotify.Client
   com.discordapp.Discord
-#  com.valvesoftware.Steam
-#  com.mojang.Minecraft
   com.visualstudio.code
-#  io.atom.Atom
   io.github.mimbrero.WhatsAppDesktop
   org.codeblocks.codeblocks
   org.onlyoffice.desktopeditors
   org.videolan.VLC
   org.gimp.GIMP
   org.inkscape.Inkscape
+# com.valvesoftware.Steam
+# com.mojang.Minecraft
+# io.atom.Atom
 )
 
-PACOTES_GIT=(
-  https://aur.archlinux.org/gnome-shell-extension-dash-to-dock.git
-)
+#PACOTES_GIT=(
+#  https://aur.archlinux.org/gnome-shell-extension-dash-to-dock.git
+#)
 
 PACOTES_TAR=(
   http://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/linux/2.x/2.4/en_us/FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
+)
+
+PACOTES_YAY=(
+  gnome-shell-extension-dash-to-dock
+  yaru-sound-theme
+  yaru-session
 )
 
 # *** WALLPAPERS ***
@@ -135,29 +144,29 @@ instalar_pacotes_flatpak()
   done
 }
 
-instalar_pacotes_git()
-{
-  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .git...${SEM_COR}"
-  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
-  for url in ${PACOTES_GIT[@]}; do
-    url_extraida="$(echo ${url##*/} | sed 's/.git//g')"
-    if ! pacman -Q | grep -iq $url_extraida; then
-      echo -e "${AMARELO}[INFO] - Baixando o pacote $url_extraida ...${SEM_COR}"
-      git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
-      cd $DIRETORIO_PACOTES_GIT/$url_extraida
-      echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
-      makepkg -s --noconfirm &> /dev/null
-      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
-      if pacman -Q | grep -iq $url_extraida; then
-        echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
-      else
-        echo -e "${VERMELHO}[ERROR] - O pacote $url_extraida não foi instalado.${SEM_COR}"
-      fi
-    else
-      echo -e "${VERDE}[INFO] - O pacote $url_extraida já está instalado.${SEM_COR}"
-    fi
-  done
-}
+#instalar_pacotes_git()
+#{
+#  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .git...${SEM_COR}"
+#  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
+#  for url in ${PACOTES_GIT[@]}; do
+#    url_extraida="$(echo ${url##*/} | sed 's/.git//g')"
+#    if ! pacman -Q | grep -iq $url_extraida; then
+#      echo -e "${AMARELO}[INFO] - Baixando o pacote $url_extraida ...${SEM_COR}"
+#      git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
+#      cd $DIRETORIO_PACOTES_GIT/$url_extraida
+#      echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
+#      makepkg -s --noconfirm &> /dev/null
+#      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
+#      if pacman -Q | grep -iq $url_extraida; then
+#        echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
+#      else
+#        echo -e "${VERMELHO}[ERROR] - O pacote $url_extraida não foi instalado.${SEM_COR}"
+#      fi
+#    else
+#      echo -e "${VERDE}[INFO] - O pacote $url_extraida já está instalado.${SEM_COR}"
+#    fi
+#  done
+#}
 
 instalar_pacotes_tar()
 {
@@ -178,14 +187,48 @@ instalar_pacotes_tar()
   echo -e "${VERDE}[INFO] - Pacotes .tar instalados com sucesso.${SEM_COR}"
 }
 
+instalar_yay()
+{
+  echo -e "${AMARELO}[INFO] - Baixando e instalando o yay...${SEM_COR}"
+  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
+  if ! pacman -Q | grep -iq yay; then
+    echo -e "${AMARELO}[INFO] - Baixando o pacote yay...${SEM_COR}"
+    sudo pacman -S --needed git base-devel
+    git clone $PACOTE_YAY $DIRETORIO_PACOTES_GIT/yay &> /dev/null
+    cd $DIRETORIO_PACOTES_GIT/yay
+    echo -e "${AMARELO}[INFO] - Instalando o pacote yay...${SEM_COR}"
+    makepkg -si --noconfirm &> /dev/null
+    if pacman -Q | grep -iq yay; then
+      echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
+    else
+      echo -e "${VERMELHO}[ERROR] - O pacote yay não foi instalado.${SEM_COR}"
+    fi
+  else
+    echo -e "${VERDE}[INFO] - O pacote yay já está instalado.${SEM_COR}"
+  fi
+}
+
 instalar_temas_adicionais()
 {
   echo -e "${AMARELO}[INFO] - Instalando temas e fontes adicionais...${SEM_COR}"
   sudo pacman -S --noconfirm ttf-ubuntu-font-family arc-gtk-theme arc-solid-gtk-theme gnome-themes-extra gtk-engine-murrine &> /dev/null
-  git clone https://github.com/horst3180/arc-icon-theme --depth 1 &> /dev/null
-  cd arc-icon-theme
+  git clone https://github.com/horst3180/arc-icon-theme --depth 1 $DIRETORIO_PACOTES_GIT/arc-icon-theme &> /dev/null
+  cd $DIRETORIO_PACOTES_GIT/arc-icon-theme
   ./autogen.sh --prefix=/usr
   sudo make -s install
+  for pkg in ${PACOTES_YAY[@]}; do
+    if ! pacman -Q | grep -iq $pkg; then
+      echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
+      yay -S $pkg
+      if pacman -Q | grep -iq $pkg; then
+        echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
+      else
+        echo -e "${VERMELHO}[ERROR] - O pacote $pkg não foi instalado.${SEM_COR}"
+      fi
+    else
+      echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
+    fi
+  done
   echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados...${SEM_COR}"
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
@@ -215,8 +258,9 @@ atualizacao_limpeza_sistema()
 instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
-instalar_pacotes_git
+#instalar_pacotes_git
 instalar_pacotes_tar
+instalar_yay
 instalar_temas_adicionais
 atualizacao_limpeza_sistema
 # ================================================================================================================================================== #
