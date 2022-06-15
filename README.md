@@ -6,6 +6,8 @@
   * Esse script realiza configurações específicas no Arch Linux após sua instalação.
 
 # Como usar?
+  * Este script deve ser executado como root (su -);
+
   * Dar permissões ao arquivo script:
 
         chmod +x arch-post-config.sh
