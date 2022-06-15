@@ -1,3 +1,19 @@
+# arch-post-config.sh
+
+* Autor: Reinaldo G. P. Neto
+
+# O que ele faz?
+  * Esse script realiza configurações específicas no Arch Linux após sua instalação.
+
+# Como usar?
+  * Dar permissões ao arquivo script:
+
+        chmod +x arch-post-config.sh
+
+  * Executar o script:
+ 
+        ./arch-post-config.sh
+
 # arch-post-install.sh
 
 * Autor: Reinaldo G. P. Neto
