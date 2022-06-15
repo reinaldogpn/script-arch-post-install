@@ -229,7 +229,7 @@ instalar_temas_adicionais()
       echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
     fi
   done
-  echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados...${SEM_COR}"
+  echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados. Lembre-se de alterar o tema através do gnome-tweaks...${SEM_COR}"
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
   wget -c $WALLPAPER_ALBUM -P $DIRETORIO_WALLPAPERS &> /dev/null
