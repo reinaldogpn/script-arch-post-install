@@ -193,7 +193,7 @@ instalar_yay()
   [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
   if ! pacman -Q | grep -iq yay; then
     echo -e "${AMARELO}[INFO] - Baixando o pacote yay...${SEM_COR}"
-    sudo pacman -S --needed git base-devel
+    sudo pacman -S --needed --noconfirm git base-devel &> /dev/null
     git clone $PACOTE_YAY $DIRETORIO_PACOTES_GIT/yay &> /dev/null
     cd $DIRETORIO_PACOTES_GIT/yay
     echo -e "${AMARELO}[INFO] - Instalando o pacote yay...${SEM_COR}"
@@ -214,8 +214,8 @@ instalar_temas_adicionais()
   sudo pacman -S --noconfirm ttf-ubuntu-font-family arc-gtk-theme arc-solid-gtk-theme gnome-themes-extra gtk-engine-murrine &> /dev/null
   git clone https://github.com/horst3180/arc-icon-theme --depth 1 $DIRETORIO_PACOTES_GIT/arc-icon-theme &> /dev/null
   cd $DIRETORIO_PACOTES_GIT/arc-icon-theme
-  ./autogen.sh --prefix=/usr
-  sudo make -s install
+  ./autogen.sh --prefix=/usr &> /dev/null
+  sudo make -s install &> /dev/null
   for pkg in ${PACOTES_YAY[@]}; do
     if ! pacman -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
@@ -244,7 +244,7 @@ atualizacao_limpeza_sistema()
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
   flatpak update -y &> /dev/null
   sudo pacman -Syu --noconfirm &> /dev/null
-  sudo rm -r $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
+  rm -rf $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
   neofetch
   echo -e "${VERDE}[INFO] - Configuração concluída!${SEM_COR}"
   echo -e "${AMARELO}[INFO] - Reinicialização necessária, deseja reiniciar agora? [S/n]:${SEM_COR}"
