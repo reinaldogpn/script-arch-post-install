@@ -64,6 +64,8 @@ PACOTES_YAY=(
   gnome-shell-extension-dash-to-dock
   yaru-sound-theme
   yaru-session
+  yaru-icon-theme
+  yaru-gtk-theme
 )
 
 # *** WALLPAPERS ***
