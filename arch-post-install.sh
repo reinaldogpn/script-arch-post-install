@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# script_post_install_arch.sh - Faz as configurações pós instalação do Arch Linux (Gnome).
+# arch-post-install.sh - Faz as configurações pós instalação do Arch Linux (Gnome).
 # ------------------------------------------------------------------------ #
 # Autor:	  Reinaldo G. P. Neto
 # Github: 	github.com/reinaldogpn
@@ -10,8 +10,8 @@
 #     do Arch Linux com o ambiente gráfico do Gnome. É de fácil modificação/inclusão de variáveis e novos programas.
 #
 # COMO USAR?
-#   - Dar permissões ao arquivo script: chmod +x script_post_install_arch.sh
-#   - $ ./script_post_install_arch.sh
+#   - Dar permissões ao arquivo script: chmod +x arch-post-install.sh
+#   - $ ./arch-post-install.sh
 #
 # ------------------------------------------------------------------------ #
 # Changelog:
