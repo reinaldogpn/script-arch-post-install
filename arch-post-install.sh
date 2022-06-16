@@ -52,9 +52,7 @@ PACOTES_FLATPAK=(
 # io.atom.Atom
 )
 
-#PACOTES_GIT=(
-#  https://aur.archlinux.org/gnome-shell-extension-dash-to-dock.git
-#)
+#PACOTES_GIT=() // not in use
 
 PACOTES_TAR=(
   http://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/linux/2.x/2.4/en_us/FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
@@ -146,29 +144,29 @@ instalar_pacotes_flatpak()
   done
 }
 
-#instalar_pacotes_git()
-#{
-#  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .git...${SEM_COR}"
-#  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
-#  for url in ${PACOTES_GIT[@]}; do
-#    url_extraida="$(echo ${url##*/} | sed 's/.git//g')"
-#    if ! pacman -Q | grep -iq $url_extraida; then
-#      echo -e "${AMARELO}[INFO] - Baixando o pacote $url_extraida ...${SEM_COR}"
-#      git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
-#      cd $DIRETORIO_PACOTES_GIT/$url_extraida
-#      echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
-#      makepkg -s --noconfirm &> /dev/null
-#      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
-#      if pacman -Q | grep -iq $url_extraida; then
-#        echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
-#      else
-#        echo -e "${VERMELHO}[ERROR] - O pacote $url_extraida não foi instalado.${SEM_COR}"
-#      fi
-#    else
-#      echo -e "${VERDE}[INFO] - O pacote $url_extraida já está instalado.${SEM_COR}"
-#    fi
-#  done
-#}
+instalar_pacotes_git()
+{
+  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .git...${SEM_COR}"
+  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
+  for url in ${PACOTES_GIT[@]}; do
+    url_extraida="$(echo ${url##*/} | sed 's/.git//g')"
+    if ! pacman -Q | grep -iq $url_extraida; then
+      echo -e "${AMARELO}[INFO] - Baixando o pacote $url_extraida ...${SEM_COR}"
+      git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
+      cd $DIRETORIO_PACOTES_GIT/$url_extraida
+      echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
+      makepkg -s --noconfirm &> /dev/null
+      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
+      if pacman -Q | grep -iq $url_extraida; then
+        echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
+      else
+        echo -e "${VERMELHO}[ERROR] - O pacote $url_extraida não foi instalado.${SEM_COR}"
+      fi
+    else
+      echo -e "${VERDE}[INFO] - O pacote $url_extraida já está instalado.${SEM_COR}"
+    fi
+  done
+}
 
 instalar_pacotes_tar()
 {
@@ -200,8 +198,11 @@ instalar_yay()
     cd $DIRETORIO_PACOTES_GIT/yay
     echo -e "${AMARELO}[INFO] - Instalando o pacote yay...${SEM_COR}"
     makepkg -si --noconfirm &> /dev/null
-    yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save
     if pacman -Q | grep -iq yay; then
+      echo -e "${AMARELO}[INFO] - Aplicando configurações...${SEM_COR}"
+      yay -Y --gendb
+      yay -Syu --devel
+      yay -Y --devel --noeditmenu --nodiffmenu --nocleanmenu --cleanafter --save
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
       echo -e "${VERMELHO}[ERROR] - O pacote yay não foi instalado.${SEM_COR}"
@@ -262,7 +263,7 @@ atualizacao_limpeza_sistema()
 instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
-#instalar_pacotes_git
+# instalar_pacotes_git // not in use
 instalar_pacotes_tar
 instalar_yay
 instalar_temas_adicionais
