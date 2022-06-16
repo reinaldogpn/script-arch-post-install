@@ -200,9 +200,7 @@ instalar_yay()
     cd $DIRETORIO_PACOTES_GIT/yay
     echo -e "${AMARELO}[INFO] - Instalando o pacote yay...${SEM_COR}"
     makepkg -si --noconfirm &> /dev/null
-    yay -Y --gendb
-    yay -Syu --devel
-    yay -Y --devel --save
+    yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save
     if pacman -Q | grep -iq yay; then
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
@@ -224,7 +222,7 @@ instalar_temas_adicionais()
   for pkg in ${PACOTES_YAY[@]}; do
     if ! pacman -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
-      yay -S $pkg
+      yay -S --noconfirm $pkg
       if pacman -Q | grep -iq $pkg; then
         echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
       else
@@ -249,6 +247,7 @@ atualizacao_limpeza_sistema()
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
   flatpak update -y &> /dev/null
   sudo pacman -Syu --noconfirm &> /dev/null
+  yay -Syua --noconfirm && yay -Yc --noconfirm
   rm -rf $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
   neofetch
   echo -e "${VERDE}[INFO] - Configuração concluída!${SEM_COR}"
