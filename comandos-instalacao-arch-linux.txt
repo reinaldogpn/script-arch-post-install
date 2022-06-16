@@ -239,7 +239,7 @@ git clone https://github.com/reinaldogpn/arch-post-install.git
 
 # Ativar bluetooth permanentemente:
 
-systemctl enable bluetooh
+systemctl enable bluetooth
 
 # Pacotes git para instalar:
 
@@ -304,20 +304,20 @@ flatpak remote-add --if-not-exists gnome https://sdk.gnome.org/gnome.flatpakrepo
 
 flatpak install flathub <url>
 
-app.ytmdesktop.ytmdesktop           # YouTube Music
-com.calibre_ebook.calibre		        # Calibre
-com.google.Chrome 			            # Chrome
-com.spotify.Client  			          # Spotify
-com.discordapp.Discord 			        # Discord
-com.valvesoftware.Steam 		        # Steam
-com.mojang.Minecraft 			          # Minecraft
-com.visualstudio.code 			        # Visual Studio Code
-io.atom.Atom 				                # Atom 
-io.github.mimbrero.WhatsAppDesktop 	# Whatsapp Desktop Unofficial
-org.codeblocks.codeblocks 		      # CodeBlocks
-org.videolan.VLC 			              # VLC
-org.gimp.GIMP 				              # GIMP
-org.inkscape.Inkscape 			        # Inkscape
+app.ytmdesktop.ytmdesktop		# YouTube Music
+com.calibre_ebook.calibre		# Calibre
+com.google.Chrome			# Chrome
+com.spotify.Clien			# Spotify
+com.discordapp.Discord			# Discord
+com.valvesoftware.Steam			# Steam
+com.mojang.Minecraft			# Minecraft
+com.visualstudio.code			# Visual Studio Code
+io.atom.Atom				# Atom 
+io.github.mimbrero.WhatsAppDesktop	# Whatsapp Desktop Unofficial
+org.codeblocks.codeblocks		# CodeBlocks
+org.videolan.VLC			# VLC
+org.gimp.GIMP				# GIMP
+org.inkscape.Inkscape			# Inkscape
 
 # Arch Linux Wallpaper Album
 
