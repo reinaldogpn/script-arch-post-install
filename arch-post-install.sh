@@ -200,6 +200,9 @@ instalar_yay()
     cd $DIRETORIO_PACOTES_GIT/yay
     echo -e "${AMARELO}[INFO] - Instalando o pacote yay...${SEM_COR}"
     makepkg -si --noconfirm &> /dev/null
+    yay -Y --gendb
+    yay -Syu --devel
+    yay -Y --devel --save
     if pacman -Q | grep -iq yay; then
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
