@@ -6,8 +6,8 @@ VERDE='\e[1;92m'
 AMARELO='\e[1;93m'
 SEM_COR='\e[0m'
 
-echo -e "***${VERMELHO}[INFO] - Este script deve ser executado no modo super usuário (su -)!"
-echo -e "${AMARELO}[INFO] - Aplicando configurações de sistema... ${SEM_COR}"
+echo -e "${VERMELHO} *** Este script deve ser executado no modo super usuário (su -) ***${SEM_COR}"
+echo -e "${AMARELO}[INFO] - Aplicando configurações de sistema...${SEM_COR}"
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 hwclock --systohc
 date
