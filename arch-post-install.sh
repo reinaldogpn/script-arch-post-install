@@ -3,7 +3,7 @@
 # arch-post-install.sh - Faz as configurações pós instalação do Arch Linux (Gnome).
 # ------------------------------------------------------------------------ #
 # Autor:	  Reinaldo G. P. Neto
-# Github: 	github.com/reinaldogpn
+# Github: 	  github.com/reinaldogpn
 # ------------------------------------------------------------------------ #
 # O QUE ELE FAZ?
 #     Esse script faz algumas configurações específicas e instala os programas que utilizo após a instalação 
@@ -94,7 +94,7 @@ fi
 if [[ ! -x $(which wget) ]]; then
   echo -e "${VERMELHO}[ERROR] - O pacote wget não está instalado.${SEM_COR}"
   echo -e "${VERDE}[INFO] - Instalando wget...${SEM_COR}"
-  sudo pacman -S wget
+  sudo pacman -S --noconfirm wget
 else
   echo -e "${VERDE}[INFO] - O pacote wget já está instalado.${SEM_COR}"
 fi
