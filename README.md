@@ -1,3 +1,5 @@
+Este repositório inclui um arquivo .txt com os comandos que uso para fazer a instalação do Arch Linux, além de dois scripts shell que me auxiliam na instalação de pacotes pós instalação, automatizando meu trabalho.
+
 # arch-post-config.sh
 
 * Autor: Reinaldo G. P. Neto
