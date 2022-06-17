@@ -42,27 +42,30 @@ PACOTES_FLATPAK=(
   com.discordapp.Discord
   com.visualstudio.code
   io.github.mimbrero.WhatsAppDesktop
-  org.codeblocks.codeblocks
   org.onlyoffice.desktopeditors
   org.videolan.VLC
   org.gimp.GIMP
   org.inkscape.Inkscape
+# org.codeblocks.codeblocks
 # com.valvesoftware.Steam
 # com.mojang.Minecraft
 # io.atom.Atom
 )
 
-#PACOTES_GIT=() // not in use
-
-PACOTES_TAR=(
-  http://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/linux/2.x/2.4/en_us/FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
-)
+# PACOTES_GIT=() // not in use
+# PACOTES_TAR=() // not in use
 
 PACOTES_YAY=(
   gnome-shell-extension-dash-to-dock
   gnome-shell-extension-tray-icons
   gnome-shell-extension-caffeine
   gnome-shell-extension-arc-menu
+  codeblocks
+  xterm
+  allegro # --> /lib
+)
+
+TEMAS=(
   yaru-sound-theme
   yaru-session
   yaru-icon-theme
@@ -214,6 +217,24 @@ instalar_yay()
   fi
 }
 
+instalar_pacotes_yay()
+{
+  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes com yay...${SEM_COR}"
+  for pkg in ${PACOTES_YAY[@]}; do
+    if ! yay -Q | grep -iq $pkg; then
+      echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
+      yay -S --noconfirm $pkg
+      if pacman -Q | grep -iq $pkg; then
+        echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
+      else
+        echo -e "${VERMELHO}[ERROR] - O pacote $pkg não foi instalado.${SEM_COR}"
+      fi
+    else
+      echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
+    fi
+  done
+}
+
 instalar_temas_adicionais()
 {
   echo -e "${AMARELO}[INFO] - Instalando temas e fontes adicionais...${SEM_COR}"
@@ -222,7 +243,7 @@ instalar_temas_adicionais()
   cd $DIRETORIO_PACOTES_GIT/arc-icon-theme
   ./autogen.sh --prefix=/usr &> /dev/null
   sudo make -s install &> /dev/null
-  for pkg in ${PACOTES_YAY[@]}; do
+  for pkg in ${TEMAS[@]}; do
     if ! pacman -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
       yay -S --noconfirm $pkg
@@ -279,8 +300,9 @@ instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
 # instalar_pacotes_git // not in use
-instalar_pacotes_tar
+# instalar_pacotes_tar // not in use
 instalar_yay
+instalar_pacotes_yay
 instalar_temas_adicionais
 instalar_driver_wifi_usb
 atualizacao_limpeza_sistema
