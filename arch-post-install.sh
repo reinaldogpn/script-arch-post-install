@@ -200,8 +200,7 @@ instalar_yay()
     makepkg -si --noconfirm &> /dev/null
     if pacman -Q | grep -iq yay; then
       echo -e "${AMARELO}[INFO] - Aplicando configurações...${SEM_COR}"
-      yay -Y --gendb
-      yay -Syu --devel
+      yay -Y --gendb && yay -Syu --devel
       yay -Y --devel --noeditmenu --nodiffmenu --nocleanmenu --cleanafter --save
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
@@ -243,6 +242,19 @@ instalar_temas_adicionais()
   echo -e "${VERDE}[INFO] - Wallpapers baixados com sucesso! Não se esqueça de escolher um bem legal em Configurações -> Plano de fundo... ${SEM_COR}"
 }
 
+instalar_driver_wifi_usb() # TP-Link Archer T2U Plus drivers
+{
+  echo -e "${AMARELO}[INFO] - Instalando drivers rtl88xxau... Isso pode levar alguns minutos.${SEM_COR}"
+  yay -S --needed --noconfirm linux-headers
+  yay -Sy --noconfirm rtl88xxau-aircrack-dkms-git
+# sudo modprobe 8812au
+  if yay -Q | grep -iq rtl88xxau-aircrack-dkms-git; then
+    echo -e "${VERDE}[INFO] - Drivers instalados com sucesso!${SEM_COR}"
+  else
+    echo -e "${VERMELHO}[ERROR] - Falha na instalação dos drivers.${SEM_COR}"
+  fi
+}
+
 atualizacao_limpeza_sistema()
 {
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
@@ -267,5 +279,6 @@ instalar_pacotes_flatpak
 instalar_pacotes_tar
 instalar_yay
 instalar_temas_adicionais
+instalar_driver_wifi_usb
 atualizacao_limpeza_sistema
 # ================================================================================================================================================== #
