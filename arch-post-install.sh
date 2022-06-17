@@ -27,9 +27,9 @@
 PACOTE_YAY="https://aur.archlinux.org/yay.git"
 
 PACOTES_PACMAN=(
+  firefox
   flatpak
   qbittorrent
-  thunderbird
   neofetch
   gedit
 )
@@ -57,6 +57,7 @@ PACOTES_FLATPAK=(
 # PACOTES_TAR=() // not in use
 
 PACOTES_YAY=(
+  chrome-gnome-shell
   gnome-shell-extension-dash-to-dock
   gnome-shell-extension-appindicator
   gnome-shell-extension-caffeine
@@ -207,7 +208,7 @@ instalar_yay()
     if pacman -Q | grep -iq yay; then
       echo -e "${AMARELO}[INFO] - Aplicando configurações...${SEM_COR}"
       yay -Y --gendb && yay -Syu --devel
-      yay -Y --devel --noeditmenu --nodiffmenu --nocleanmenu --cleanafter --save
+      yay -Y --devel --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --nocleanafter --noremovemake --sudoloop --save
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
       echo -e "${VERMELHO}[ERROR] - O pacote yay não foi instalado.${SEM_COR}"
@@ -283,8 +284,9 @@ atualizacao_limpeza_sistema()
 {
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
   flatpak update -y &> /dev/null
+  yay -Y --devel --noeditmenu --nodiffmenu --norebuild --noredownload --cleanmenu --cleanafter --removemake --nosudoloop --save
+  yay -Syu --noconfirm && yay -Yc --noconfirm
   sudo pacman -Syu --noconfirm &> /dev/null
-  yay -Syua --noconfirm && yay -Yc --noconfirm
   rm -rf $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
   neofetch
   echo -e "${VERDE}[INFO] - Configuração concluída!${SEM_COR}"
