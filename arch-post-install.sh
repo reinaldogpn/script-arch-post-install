@@ -45,6 +45,7 @@ PACOTES_FLATPAK=(
   org.onlyoffice.desktopeditors
   org.videolan.VLC
   org.gimp.GIMP
+  org.gtk.Gtk3theme-Yaru-dark
   org.inkscape.Inkscape
 # org.codeblocks.codeblocks
 # com.valvesoftware.Steam
