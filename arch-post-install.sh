@@ -250,7 +250,7 @@ instalar_driver_wifi_usb() # TP-Link Archer T2U Plus drivers
   echo -e "${AMARELO}[INFO] - Instalando drivers rtl88xxau... Isso pode levar alguns minutos.${SEM_COR}"
   yay -S --needed --noconfirm linux-headers
   yay -Sy --noconfirm rtl88xxau-aircrack-dkms-git
-# sudo modprobe 8812au
+  sudo modprobe rtl8xxxu
   if yay -Q | grep -iq rtl88xxau-aircrack-dkms-git; then
     echo -e "${VERDE}[INFO] - Drivers instalados com sucesso!${SEM_COR}"
   else
