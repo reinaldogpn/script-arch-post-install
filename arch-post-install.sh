@@ -57,9 +57,8 @@ PACOTES_FLATPAK=(
 
 PACOTES_YAY=(
   gnome-shell-extension-dash-to-dock
-  gnome-shell-extension-tray-icons
+  gnome-shell-extension-appindicator
   gnome-shell-extension-caffeine
-  gnome-shell-extension-arc-menu
   codeblocks
   xterm
   allegro # --> /lib
