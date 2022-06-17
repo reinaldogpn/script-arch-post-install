@@ -60,6 +60,9 @@ PACOTES_TAR=(
 
 PACOTES_YAY=(
   gnome-shell-extension-dash-to-dock
+  gnome-shell-extension-tray-icons
+  gnome-shell-extension-caffeine
+  gnome-shell-extension-arc-menu
   yaru-sound-theme
   yaru-session
   yaru-icon-theme
