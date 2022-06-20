@@ -80,6 +80,12 @@ DIRETORIO_PACOTES_TAR="$HOME/Downloads/PACOTES_TAR/"
 DIRETORIO_WALLPAPERS="$HOME/Downloads/WALLPAPERS/"
 FILE="/home/$USER/.config/gtk-3.0/bookmarks"
 
+DIRETORIOS=(
+  /home/$USER/'👨🏻‍💻 Projetos'
+  /home/$USER/'🤖 GitHub'
+  /home/$USER/'🧰 Utilidades'
+)
+
 # ================================================================================================================================================== #
 # *** TESTES ***
 # Internet conectando?
@@ -188,6 +194,7 @@ instalar_pacotes_yay()
 
 instalar_temas_adicionais()
 {
+  # Customização do sistema
   echo -e "${AMARELO}[INFO] - Instalando temas e fontes adicionais...${SEM_COR}"
   sudo pacman -S --noconfirm ttf-ubuntu-font-family arc-gtk-theme arc-solid-gtk-theme gnome-themes-extra gtk-engine-murrine &> /dev/null
   git clone https://github.com/horst3180/arc-icon-theme --depth 1 $DIRETORIO_PACOTES_GIT/arc-icon-theme &> /dev/null
@@ -207,16 +214,20 @@ instalar_temas_adicionais()
       echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
     fi
   done
+  # Customização do Nautilus
   echo -e "${AMARELO}[INFO] - Criando diretórios pessoais...${SEM_COR}"
-  mkdir /home/$USER/Projetos
   if test -f "$FILE"; then
       echo -e "${VERDE}[INFO] - $FILE já existe.${SEM_COR}"
   else
       echo -e "${AMARELO}[INFO] - $FILE não existe. Criando...${SEM_COR}"
       touch /home/$USER/.config/gkt-3.0/bookmarks
   fi
-  echo "file:///home/$USER/Projetos 👨🏻‍💻 Projetos" >> $FILE
+  for diretorio in ${DIRETORIOS[@]}; do
+    mkdir $diretorio
+    echo "file://$diretorio" >> $FILE
+  done
   echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados. Lembre-se de alterar o tema através do gnome-tweaks...${SEM_COR}"
+  # Arch Linux Wallpapers
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
   wget -c $WALLPAPER_ALBUM -P $DIRETORIO_WALLPAPERS &> /dev/null
