@@ -36,9 +36,7 @@ PACOTES_PACMAN=(
 
 PACOTES_FLATPAK=(
   app.ytmdesktop.ytmdesktop
-  com.calibre_ebook.calibre
   com.google.Chrome
-  com.spotify.Client
   com.discordapp.Discord
   com.visualstudio.code
   io.github.mimbrero.WhatsAppDesktop
@@ -47,14 +45,8 @@ PACOTES_FLATPAK=(
   org.gimp.GIMP
   org.gtk.Gtk3theme-Yaru-dark
   org.inkscape.Inkscape
-# org.codeblocks.codeblocks
-# com.valvesoftware.Steam
-# com.mojang.Minecraft
 # io.atom.Atom
 )
-
-# PACOTES_GIT=() // not in use
-# PACOTES_TAR=() // not in use
 
 PACOTES_YAY=(
   chrome-gnome-shell
@@ -86,6 +78,7 @@ SEM_COR='\e[0m'
 DIRETORIO_PACOTES_GIT="$HOME/Downloads/PACOTES_GIT/"
 DIRETORIO_PACOTES_TAR="$HOME/Downloads/PACOTES_TAR/"
 DIRETORIO_WALLPAPERS="$HOME/Downloads/WALLPAPERS/"
+FILE="/home/$USER/.config/gtk-3.0/bookmarks"
 
 # ================================================================================================================================================== #
 # *** TESTES ***
@@ -151,49 +144,6 @@ instalar_pacotes_flatpak()
   done
 }
 
-instalar_pacotes_git()
-{
-  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .git...${SEM_COR}"
-  [[ ! -d "$DIRETORIO_PACOTES_GIT" ]] && mkdir "$DIRETORIO_PACOTES_GIT"
-  for url in ${PACOTES_GIT[@]}; do
-    url_extraida="$(echo ${url##*/} | sed 's/.git//g')"
-    if ! pacman -Q | grep -iq $url_extraida; then
-      echo -e "${AMARELO}[INFO] - Baixando o pacote $url_extraida ...${SEM_COR}"
-      git clone $url $DIRETORIO_PACOTES_GIT/$url_extraida &> /dev/null
-      cd $DIRETORIO_PACOTES_GIT/$url_extraida
-      echo -e "${AMARELO}[INFO] - Instalando o pacote $url_extraida ...${SEM_COR}"
-      makepkg -s --noconfirm &> /dev/null
-      sudo pacman -U --noconfirm *.pkg.tar.zst &> /dev/null
-      if pacman -Q | grep -iq $url_extraida; then
-        echo -e "${VERDE}[INFO] - O pacote $url_extraida foi instalado.${SEM_COR}"
-      else
-        echo -e "${VERMELHO}[ERROR] - O pacote $url_extraida não foi instalado.${SEM_COR}"
-      fi
-    else
-      echo -e "${VERDE}[INFO] - O pacote $url_extraida já está instalado.${SEM_COR}"
-    fi
-  done
-}
-
-instalar_pacotes_tar()
-{
-  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes .tar...${SEM_COR}"
-  [[ ! -d "$DIRETORIO_PACOTES_TAR" ]] && mkdir "$DIRETORIO_PACOTES_TAR"
-  for url in ${PACOTES_TAR[@]}; do
-    cd $DIRETORIO_PACOTES_TAR
-    echo -e "${AMARELO}[INFO] - Baixando o pacote ${url##*/}...${SEM_COR}"
-    echo -e "${AMARELO}[INFO] - Isso pode levar alguns minutos...${SEM_COR}"
-    wget -c $url -P $DIRETORIO_PACOTES_TAR/${url##*/} &> /dev/null
-    cd $DIRETORIO_PACOTES_TAR/${url##*/}
-    echo -e "${AMARELO}[INFO] - Descompactando o pacote ${url##*/}...${SEM_COR}"
-    tar -vzxf ${url##*/} &> /dev/null
-    echo -e "${AMARELO}[INFO] - Instalando o pacote ${url##*/}...${SEM_COR}"
-    ./*.run
-    echo -e "${VERDE}[INFO] - O pacote ${url##*/} foi instalado.${SEM_COR}"
-  done
-  echo -e "${VERDE}[INFO] - Pacotes .tar instalados com sucesso.${SEM_COR}"
-}
-
 instalar_yay()
 {
   echo -e "${AMARELO}[INFO] - Baixando e instalando o yay...${SEM_COR}"
@@ -257,6 +207,15 @@ instalar_temas_adicionais()
       echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
     fi
   done
+  echo -e "${AMARELO}[INFO] - Criando diretórios pessoais...${SEM_COR}"
+  mkdir /home/$USER/Projetos
+  if test -f "$FILE"; then
+      echo -e "${VERDE}[INFO] - $FILE já existe.${SEM_COR}"
+  else
+      echo -e "${AMARELO}[INFO] - $FILE não existe. Criando...${SEM_COR}"
+      touch /home/$USER/.config/gkt-3.0/bookmarks
+  fi
+  echo "file:///home/$USER/Projetos 👨🏻‍💻 Projetos" >> $FILE
   echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados. Lembre-se de alterar o tema através do gnome-tweaks...${SEM_COR}"
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
@@ -301,8 +260,6 @@ atualizacao_limpeza_sistema()
 instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
-# instalar_pacotes_git // not in use
-# instalar_pacotes_tar // not in use
 instalar_yay
 instalar_pacotes_yay
 instalar_temas_adicionais
