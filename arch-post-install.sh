@@ -27,28 +27,30 @@
 PACOTE_YAY="https://aur.archlinux.org/yay.git"
 
 PACOTES_PACMAN=(
+  discord
+  drawing
   firefox
   flatpak
+  gimp
+  inkscape
   qbittorrent
   neofetch
   gedit
+  vlc
 )
 
 PACOTES_FLATPAK=(
   app.ytmdesktop.ytmdesktop
-  com.google.Chrome
-  com.discordapp.Discord
-  com.visualstudio.code
   io.github.mimbrero.WhatsAppDesktop
   org.onlyoffice.desktopeditors
-  org.videolan.VLC
-  org.gimp.GIMP
   org.gtk.Gtk3theme-Yaru-dark
-  org.inkscape.Inkscape
 # io.atom.Atom
+# com.visualstudio.code
+# com.google.Chrome
 )
 
 PACOTES_YAY=(
+  google-chrome
   chrome-gnome-shell
   gnome-shell-extension-dash-to-dock
   gnome-shell-extension-appindicator
