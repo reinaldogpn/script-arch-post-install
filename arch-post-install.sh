@@ -58,11 +58,14 @@ PACOTES_YAY=(
   codeblocks
   xterm
   allegro # --> /lib
+  dropbox
+  woeusb
+  simplescreenrecorder
+  mailspring
 )
 
 TEMAS=(
   yaru-sound-theme
-  yaru-session
   yaru-icon-theme
   yaru-gtk-theme
 )
@@ -85,13 +88,11 @@ FILE="/home/$USER/.config/gtk-3.0/bookmarks"
 # Adicionar o diretório e o alias respectivamente
 DIRETORIOS=(
 /home/$USER/Projetos
-/home/$USER/GitHub
 /home/$USER/Utilidades
 )
 
 ALIASES=(
 "/home/$USER/Projetos 👨🏻‍💻 Projetos" 
-"/home/$USER/GitHub 🤖 GitHub" 
 "/home/$USER/Utilidades 🧰 Utilidades"
 )
 
