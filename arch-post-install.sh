@@ -40,13 +40,9 @@ PACOTES_PACMAN=(
 )
 
 PACOTES_FLATPAK=(
-  app.ytmdesktop.ytmdesktop
+#  app.ytmdesktop.ytmdesktop
   io.github.mimbrero.WhatsAppDesktop
-  org.onlyoffice.desktopeditors
-  org.gtk.Gtk3theme-Yaru-dark
-# io.atom.Atom
-# com.visualstudio.code
-# com.google.Chrome
+  Yaru-dark
 )
 
 PACOTES_YAY=(
@@ -59,6 +55,7 @@ PACOTES_YAY=(
   xterm
   allegro # --> /lib
   dropbox
+  onlyoffice
   woeusb
   simplescreenrecorder
   mailspring
@@ -97,26 +94,26 @@ ALIASES=(
 )
 
 # ================================================================================================================================================== #
-# *** TESTES ***
-# Internet conectando?
-if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
-  echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a internet. Verifique os cabos e o modem.${SEM_COR}"
-  exit 1
-else
-  echo -e "${VERDE}[INFO] - Conexão com a internet funcionando normalmente.${SEM_COR}"
-fi
-
-# wget está instalado?
-if [[ ! -x $(which wget) ]]; then
-  echo -e "${VERMELHO}[ERROR] - O pacote wget não está instalado.${SEM_COR}"
-  echo -e "${VERDE}[INFO] - Instalando wget...${SEM_COR}"
-  sudo pacman -S --noconfirm wget
-else
-  echo -e "${VERDE}[INFO] - O pacote wget já está instalado.${SEM_COR}"
-fi
-
-# ================================================================================================================================================== #
 # *** FUNÇÕES ***
+realizar_testes()
+{
+  # Internet connected?
+  if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
+    echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a internet. Verifique os cabos e o modem.${SEM_COR}"
+    exit 1
+  else
+    echo -e "${VERDE}[INFO] - Conexão com a internet funcionando normalmente.${SEM_COR}"
+  fi
+  # wget installed?
+  if [[ ! -x $(which wget) ]]; then
+    echo -e "${VERMELHO}[ERROR] - O pacote wget não está instalado.${SEM_COR}"
+    echo -e "${VERDE}[INFO] - Instalando wget...${SEM_COR}"
+    sudo pacman -S --noconfirm wget
+  else
+    echo -e "${VERDE}[INFO] - O pacote wget já está instalado.${SEM_COR}"
+  fi
+}
+
 instalar_pacotes_pacman()
 {
   echo -e "${AMARELO}[INFO] - Instalando pacotes pacman...${SEM_COR}"
@@ -280,6 +277,7 @@ atualizacao_limpeza_sistema()
 
 # ================================================================================================================================================== #
 # *** Execução ***
+realizar_testes
 instalar_pacotes_pacman
 add_repositorios_flatpak
 instalar_pacotes_flatpak
