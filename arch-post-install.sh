@@ -29,20 +29,21 @@ PACOTE_YAY="https://aur.archlinux.org/yay.git"
 PACOTES_PACMAN=(
   discord
   drawing
-  firefox
   flatpak
-  gimp
-  inkscape
+  gedit
+  gnome-software-plugin-flatpak
   qbittorrent
   neofetch
-  gedit
   vlc
 )
 
 PACOTES_FLATPAK=(
-#  app.ytmdesktop.ytmdesktop
-  io.github.mimbrero.WhatsAppDesktop
-  Yaru-dark
+  com.spotify.Client                    # Spotify
+  com.usebottles.bottles                # Bottles
+  io.github.mimbrero.WhatsAppDesktop    # Whatsapp
+  org.gtk.Gtk3theme.Yaru-dark           # Yaru-dark theme
+  org.gnome.Epiphany                    # Epiphany (Gnome Web)
+  org.onlyoffice.desktopeditors         # OnlyOffice
 )
 
 PACOTES_YAY=(
@@ -55,16 +56,16 @@ PACOTES_YAY=(
   xterm
   allegro # --> /lib
   dropbox
-  onlyoffice
   woeusb
   simplescreenrecorder
   mailspring
 )
 
 TEMAS=(
-  yaru-sound-theme
-  yaru-icon-theme
-  yaru-gtk-theme
+  yaru-session
+#  yaru-sound-theme
+#  yaru-icon-theme
+#  yaru-gtk-theme
 )
 
 # *** WALLPAPERS ***
@@ -85,12 +86,10 @@ FILE="/home/$USER/.config/gtk-3.0/bookmarks"
 # Adicionar o diretório e o alias respectivamente
 DIRETORIOS=(
 /home/$USER/Projetos
-/home/$USER/Utilidades
 )
 
 ALIASES=(
 "/home/$USER/Projetos 👨🏻‍💻 Projetos" 
-"/home/$USER/Utilidades 🧰 Utilidades"
 )
 
 # ================================================================================================================================================== #
