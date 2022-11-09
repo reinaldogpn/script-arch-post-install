@@ -226,6 +226,23 @@ instalar_suporte_jogos()
   done
 }
 
+instalar_suporte_virtualbox()
+{
+  echo -e "${AMARELO}[INFO] - Instalando drivers e ferramentas para o VBox...${SEM_COR}"
+  sudo pacman -S --noconfirm virtualbox virtualbox-guest-iso &> /dev/null
+  sudo gpasswd -a $USER vboxusers &> /dev/null
+  sudo modprobe vboxdrv &> /dev/null
+  yay -Syy --noconfirm &> /dev/null
+  yay -S --noconfirm virtualbox-ext-oracle &> /dev/null
+  sudo systemctl enable vboxweb.service &> /dev/null
+  sudo systemctl start vboxweb.service &> /dev/null
+  if lsmod | grep -i vbox; then
+    echo -e "${VERDE}[INFO] - O VirtualBox foi corretamente instalado e está pronto para uso.${SEM_COR}"
+  else
+    echo -e "${VERMELHO}[ERROR] - O VirtualBox não está pronto.${SEM_COR}"
+  fi
+}
+
 instalar_temas_adicionais()
 {
   # Customização do sistema
@@ -311,6 +328,7 @@ instalar_pacotes_flatpak
 instalar_yay
 instalar_pacotes_yay
 instalar_suporte_jogos
+instalar_suporte_virtualbox
 instalar_temas_adicionais
 instalar_driver_wifi_usb
 atualizacao_limpeza_sistema
