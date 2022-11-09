@@ -37,6 +37,18 @@ PACOTES_PACMAN=(
   vlc
 )
 
+PACOTES_GAMES=(
+  nvidia-dkms
+  nvidia-util
+  lib32-nvidia-utils
+  nvidia-setting
+  vulkan-icd-loader
+  lib32-vulkan-icd-loader
+  steam
+  wine
+  lutris
+)
+
 PACOTES_FLATPAK=(
   com.spotify.Client                    # Spotify
   com.usebottles.bottles                # Bottles
@@ -62,10 +74,9 @@ PACOTES_YAY=(
 )
 
 TEMAS=(
-  yaru-session
-#  yaru-sound-theme
-#  yaru-icon-theme
-#  yaru-gtk-theme
+  yaru-sound-theme
+  yaru-icon-theme
+  yaru-gtk-theme
 )
 
 # *** WALLPAPERS ***
@@ -89,7 +100,7 @@ DIRETORIOS=(
 )
 
 ALIASES=(
-"/home/$USER/Projetos 👨🏻‍💻 Projetos" 
+"/home/$USER/Projetos Projetos" 
 )
 
 # ================================================================================================================================================== #
@@ -198,6 +209,24 @@ instalar_pacotes_yay()
   done
 }
 
+instalar_suporte_jogos()
+{
+  echo -e "${AMARELO}[INFO] - Instalando drivers e ferramentas para jogos...${SEM_COR}"
+  for pacote in ${PACOTES_GAMES[@]}; do
+    if ! pacman -Q | grep -q $pacote; then
+      echo -e "${AMARELO}[INFO] - Instalando o pacote $pacote...${SEM_COR}"
+      sudo pacman -S --noconfirm $pacote &> /dev/null
+      if pacman -Q | grep -q $pacote; then
+        echo -e "${VERDE}[INFO] - O pacote $pacote foi instalado.${SEM_COR}"
+      else
+        echo -e "${VERMELHO}[ERROR] - O pacote $pacote não foi instalado.${SEM_COR}"
+      fi
+    else
+      echo -e "${VERDE}[INFO] - O pacote $pacote já está instalado.${SEM_COR}"
+    fi
+  done
+}
+
 instalar_temas_adicionais()
 {
   # Customização do sistema
@@ -282,6 +311,7 @@ add_repositorios_flatpak
 instalar_pacotes_flatpak
 instalar_yay
 instalar_pacotes_yay
+instalar_suporte_jogos
 instalar_temas_adicionais
 instalar_driver_wifi_usb
 atualizacao_limpeza_sistema
