@@ -50,11 +50,9 @@ PACOTES_GAMES=(
 )
 
 PACOTES_FLATPAK=(
-  com.spotify.Client                    # Spotify
   com.usebottles.bottles                # Bottles
   io.github.mimbrero.WhatsAppDesktop    # Whatsapp
   org.gtk.Gtk3theme.Yaru-dark           # Yaru-dark theme
-  org.gnome.Epiphany                    # Epiphany (Gnome Web)
   org.onlyoffice.desktopeditors         # OnlyOffice
 )
 
@@ -70,6 +68,7 @@ PACOTES_YAY=(
   dropbox
   woeusb
   simplescreenrecorder
+  spotify
   mailspring
 )
 
