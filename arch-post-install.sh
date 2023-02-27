@@ -12,7 +12,7 @@
 # COMO USAR?
 #   - Dar permissões ao arquivo script: chmod +x arch-post-install.sh
 #   - $ ./arch-post-install.sh
-#
+#   - Download Arch Linux ISO: https://archlinux.org/download/
 # ------------------------------------------------------------------------ #
 # Changelog:
 #
@@ -247,11 +247,7 @@ instalar_temas_adicionais()
 {
   # Customização do sistema
   echo -e "${AMARELO}[INFO] - Instalando temas e fontes adicionais...${SEM_COR}"
-  sudo pacman -S --noconfirm ttf-ubuntu-font-family arc-gtk-theme arc-solid-gtk-theme gnome-themes-extra gtk-engine-murrine &> /dev/null
-  git clone https://github.com/horst3180/arc-icon-theme --depth 1 $DIRETORIO_PACOTES_GIT/arc-icon-theme &> /dev/null
-  cd $DIRETORIO_PACOTES_GIT/arc-icon-theme
-  ./autogen.sh --prefix=/usr &> /dev/null
-  sudo make -s install &> /dev/null
+  sudo pacman -S --noconfirm ttf-ubuntu-font-family gnome-themes-extra gtk-engine-murrine &> /dev/null
   for pkg in ${TEMAS[@]}; do
     if ! pacman -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
