@@ -11,7 +11,7 @@ is_root()
 {
   # Se o UID não for 0 (root), exibe mensagem de erro e sai com código de erro 1
   if [ $UID -ne 0 ]; then
-    echo -e "${VERMELHO}[ERROR] Este script deve ser executado como root.${SEM_COR}" 
+    echo -e "${VERMELHO}[ERROR] - Este script deve ser executado como root.${SEM_COR}"
     exit 1
   fi
 }
