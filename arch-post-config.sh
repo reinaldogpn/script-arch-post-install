@@ -5,16 +5,15 @@ VERMELHO='\e[1;91m'
 VERDE='\e[1;92m'
 AMARELO='\e[1;93m'
 SEM_COR='\e[0m'
-#
-# echo -e "${VERMELHO} *** Este script deve ser executado no modo super usuário (su -) ***${SEM_COR}"
+# -------------------------------------
 
-is_root()
+is_root() 
 {
-  # é root?
-  [[ "\$UID" -ne "0" ]] && {  
-    printf '%b' "Execute como r00t.\n"
+  # Se o UID não for 0 (root), exibe mensagem de erro e sai com código de erro 1
+  if [ $UID -ne 0 ]; then
+    echo -e "${VERMELHO} *** Este script deve ser executado no modo super usuário (su -) ***${SEM_COR}"
     exit 1
-  }
+  fi
 }
 
 configurar()
