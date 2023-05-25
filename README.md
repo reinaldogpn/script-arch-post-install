@@ -53,9 +53,7 @@ chmod +x arch-post-install.sh
 
 # Instalando o Arch Linux
 
-### Lembre-se, para qualquer dúvida, a resposta está em https://wiki.archlinux.org/ - a bíblia do Arch Linux.
-
-_Créditos ao DioLinux:_ _<a href="https://www.youtube.com/DiolinuxBr">YouTube</a>_ | _<a href="https://diolinux.com.br/sistemas-operacionais/arch-linux/como-instalar-arch-linux-tutorial-iniciantes.html">Blog</a>_
+Lembre-se, para qualquer dúvida, a resposta está em https://wiki.archlinux.org/ - a bíblia do Arch Linux.
 
 ### Habilitando o teclado pt-br abnt2:
 
@@ -446,3 +444,5 @@ cp *.jpeg *.jpg *.png $HOME/.local/share/backgrounds/
 ## Link original do álbum: 
 
 https://imgur.com/a/Tr4Z6kO
+
+[^1]: Créditos a [Diolinux](https://github.com/Diolinux): [YouTube](https://www.youtube.com/DiolinuxBr) | [Blog](https://diolinux.com.br/sistemas-operacionais/arch-linux/como-instalar-arch-linux-tutorial-iniciantes.html)
