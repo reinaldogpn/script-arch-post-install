@@ -441,7 +441,7 @@ cd $HOME/Downloads/arch-wallpapers/
 cp *.jpeg *.jpg *.png $HOME/.local/share/backgrounds/
 ```
 
-## Link original do álbum: 
+**Link original do álbum:**
 
 https://imgur.com/a/Tr4Z6kO
 
