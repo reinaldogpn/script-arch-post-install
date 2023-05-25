@@ -164,12 +164,6 @@ swapon /dev/sda2
 lsblk /dev/sda
 ```
 
-### Configurando os espelhos
-
-```
-nano /etc/pacman.d/mirrorlist
-```
-
 ### Instalando pacotes essenciais do Arch Linux
 
 ```
