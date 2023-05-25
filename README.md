@@ -148,9 +148,10 @@ mkdir /mnt/boot
 
 > **Note** 
 > 
-> - Criando o diretório /boot/efi (se for utilizar UEFI):
+> **Para sistemas _UEFI_, usar os comandos:**
+> 1. Criando o diretório /boot/efi:
 >   - `mkdir /mnt/boot/efi`
-> - Montando a partição /boot/efi (se for utilizar UEFI):
+> 2. Montando a partição /boot/efi:
 >   - `mount /dev/sda1 /mnt/boot/efi`
 
 ### Ativando a partição SWAP:
@@ -263,12 +264,12 @@ reboot
 
 > ### UEFI
 >
-> - `pacman -S grub grub-efi-x86_64 efibootmgr`
-> - `grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch_grub --recheck`
-> - `cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo`
-> - `grub-mkconfig -o /boot/grub/grub.cfg`
-> - `exit`
-> - `reboot`
+> 1. `pacman -S grub grub-efi-x86_64 efibootmgr`
+> 2. `grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch_grub --recheck`
+> 3. `cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo`
+> 4. `grub-mkconfig -o /boot/grub/grub.cfg`
+> 5. `exit`
+> 6. `reboot`
 
 ### Adicionando usuário ao arquivo sudoers
 
