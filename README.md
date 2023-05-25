@@ -373,7 +373,14 @@ systemctl enable NetworkManager
 > 
 > - Em seguida, reiniciar o serviço iwd:
 >   - `systemctl restart iwd`
->   - `reboot`
+
+## Fim da Instalação
+
+Instalação concluída! Agora é só reiniciar a máquina e seu Arch Linux estará pronto para o uso através da interface gráfica do GNOME.
+
+```
+reboot
+```
 
 ## Script
 
