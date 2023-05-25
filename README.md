@@ -414,29 +414,29 @@ flatpak remote-add --if-not-exists gnome https://sdk.gnome.org/gnome.flatpakrepo
 flatpak install flathub <url>
 ```
 
-> - YouTube Music
+> - **YouTube Music**
 >   - app.ytmdesktop.ytmdesktop
-> - Calibre
+> - **Calibre**
 >   - com.calibre_ebook.calibre
-> - Chrome
+> - **Chrome**
 >   - com.google.Chrome
-> - Spotify
+> - **Spotify**
 >   - com.spotify.Client
-> - Discord
+> - **Discord**
 >   - com.discordapp.Discord
-> - Steam
+> - **Steam**
 >   - com.valvesoftware.Steam
-> - Visual Studio Code
+> - **Visual Studio Code**
 >   - com.visualstudio.code
-> - Whatsapp Desktop Unofficial
+> - **Whatsapp Desktop Unofficial**
 >   - io.github.mimbrero.WhatsAppDesktop
-> - CodeBlocks
+> - **CodeBlocks**
 >   - org.codeblocks.codeblocks
-> - VLC
+> - **VLC**
 >   - org.videolan.VLC
-> - GIMP
+> - **GIMP**
 >   - org.gimp.GIMP
-> - Inkscape
+> - **Inkscape**
 >   - org.inkscape.Inkscape
 
 ### Arch Linux Wallpaper Album
