@@ -352,9 +352,13 @@ systemctl enable NetworkManager
 ```
 
 > **Note** **Caso o wi-fi não esteja conectando, criar o arquivo (como sudo): /etc/iwd/main.conf com as seguintes infos:**
+> 
 > [General]
+> 
 > EnableNetworkConfiguration=true
+> 
 > [Network]
+> 
 > NameResolvingService=systemd
 > 
 > - Em seguida, reiniciar o serviço iwd:
