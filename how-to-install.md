@@ -329,14 +329,19 @@ systemctl enable bluetooth
 
 ### Criar o atalho ctrl + alt + T para abrir o terminal:
 
-Config. de teclado -> atalhos -> criar atalho personalizado com o comando: gnome-terminal
+> Config. de teclado -> atalhos -> criar atalho personalizado com o comando: gnome-terminal
 
 ## Flatpak
 
 ### Adicionar repositórios:
 
+```
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+```
+
+```
 flatpak remote-add --if-not-exists gnome https://sdk.gnome.org/gnome.flatpakrepo
+```
 
 ### Pacotes flatpack para instalar:
 
@@ -385,6 +390,6 @@ cd $HOME/Downloads/arch-wallpapers/
 cp *.jpeg *.jpg *.png $HOME/.local/share/backgrounds/
 ```
 
-### link original do álbum: 
+## Link original do álbum: 
 
 https://imgur.com/a/Tr4Z6kO
