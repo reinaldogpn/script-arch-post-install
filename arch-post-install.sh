@@ -312,7 +312,7 @@ customizar_nautilus()
   gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
   gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'LEFT'
   gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
-  gsettings set org.gnome.shell.extensions.dash-to-dock height-fraction '0,65'
+  gsettings set org.gnome.shell.extensions.dash-to-dock height-fraction 0.6
   gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
   echo -e "${VERDE}[INFO] - Preferências aplicadas.${SEM_COR}"
 }
