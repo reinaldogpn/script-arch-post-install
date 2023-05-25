@@ -147,6 +147,7 @@ mkdir /mnt/boot
 ```
 
 > **Note** 
+> 
 > - Criando o diretório /boot/efi (se for utilizar UEFI):
 >   - `mkdir /mnt/boot/efi`
 > - Montando a partição /boot/efi (se for utilizar UEFI):
@@ -190,7 +191,9 @@ arch-chroot /mnt
 nano /etc/locale.gen
 ```
 
-> **Note** **Descomentar linhas:**
+> **Note** 
+> 
+> **Descomentar linhas:**
 > - pt_BR.UTF-8 UTF-8
 > - pt_BR ISO-8859-1 
 
@@ -245,6 +248,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 > **Note**
+> 
 > **Se você receber a seguinte saída: Warning: os-prober will not be executed to detect other bootable 
 > partitions e quiser usar dual boot, então edite /etc/default/grub e adicione/descomente:**
 > - GRUB_DISABLE_OS_PROBER=false
@@ -351,7 +355,9 @@ systemctl enable gdm
 systemctl enable NetworkManager
 ```
 
-> **Note** **Caso o wi-fi não esteja conectando, criar o arquivo (como sudo): /etc/iwd/main.conf com as seguintes infos:**
+> **Note** 
+> 
+> **Caso o wi-fi não esteja conectando, criar o arquivo (como sudo): /etc/iwd/main.conf com as seguintes infos:**
 > ```
 > [General]
 > 
@@ -368,7 +374,9 @@ systemctl enable NetworkManager
 
 ## Script
 
-> **Note** **Para instalar pacotes adicionais e finalizar a configuração do sistema, basta executar os scripts
+> **Note** 
+> 
+> **Para instalar pacotes adicionais e finalizar a configuração do sistema, basta executar os scripts
 > que acompanham este manual:** [arch-post-config.sh](https://github.com/reinaldogpn/arch-post-install/blob/main/arch-post-config.sh) | [arch-post-install.sh](https://github.com/reinaldogpn/arch-post-install/blob/main/arch-post-install.sh)
 > - Você pode fazer o download do repositório facilmente usando o "git clone" com o comando:
 >   - `git clone https://github.com/reinaldogpn/arch-post-install.git`
