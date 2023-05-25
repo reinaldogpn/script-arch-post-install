@@ -49,6 +49,14 @@ PACOTES_GAMES=(
   lutris
 )
 
+PACOTES_DEV=(
+  visual-studio-code-bin
+  xampp
+  codeblocks
+  xterm
+  allegro # --> /lib
+)
+
 PACOTES_FLATPAK=(
   com.usebottles.bottles                # Bottles
   io.github.mimbrero.WhatsAppDesktop    # Whatsapp
@@ -62,14 +70,12 @@ PACOTES_YAY=(
   gnome-shell-extension-dash-to-dock
   gnome-shell-extension-appindicator
   gnome-shell-extension-caffeine
-  codeblocks
-  xterm
-  allegro # --> /lib
   dropbox
   woeusb
   simplescreenrecorder
   spotify
   mailspring
+  dconf-editor
 )
 
 TEMAS=(
@@ -99,6 +105,7 @@ DIRETORIOS=(
 )
 
 ALIASES=(
+"/home/$USER/Dropbox Dropbox" 
 "/home/$USER/Projetos Projetos" 
 )
 
@@ -180,7 +187,7 @@ instalar_yay()
     if pacman -Q | grep -iq yay; then
       echo -e "${AMARELO}[INFO] - Aplicando configurações...${SEM_COR}"
       yay -Y --gendb && yay -Syu --devel
-      yay -Y --devel --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --nocleanafter --noremovemake --sudoloop --save
+      yay -Y --nocleanafter --noremovemake --sudoloop --save
       echo -e "${VERDE}[INFO] - O pacote yay foi instalado.${SEM_COR}"
     else
       echo -e "${VERMELHO}[ERROR] - O pacote yay não foi instalado.${SEM_COR}"
@@ -196,7 +203,25 @@ instalar_pacotes_yay()
   for pkg in ${PACOTES_YAY[@]}; do
     if ! yay -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
-      yay -S --noconfirm $pkg
+      yay -S --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --noconfirm $pkg
+      if pacman -Q | grep -iq $pkg; then
+        echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
+      else
+        echo -e "${VERMELHO}[ERROR] - O pacote $pkg não foi instalado.${SEM_COR}"
+      fi
+    else
+      echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
+    fi
+  done
+}
+
+instalar_pacotes_dev()
+{
+  echo -e "${AMARELO}[INFO] - Baixando e instalando pacotes para desenvolvimento...${SEM_COR}"
+  for pkg in ${PACOTES_DEV[@]}; do
+    if ! yay -Q | grep -iq $pkg; then
+      echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
+      yay -S --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --noconfirm $pkg
       if pacman -Q | grep -iq $pkg; then
         echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
       else
@@ -233,7 +258,7 @@ instalar_suporte_virtualbox()
   sudo gpasswd -a $USER vboxusers &> /dev/null
   sudo modprobe vboxdrv &> /dev/null
   yay -Syy --noconfirm &> /dev/null
-  yay -S --noconfirm virtualbox-ext-oracle &> /dev/null
+  yay -S --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --noconfirm virtualbox-ext-oracle &> /dev/null
   sudo systemctl enable vboxweb.service &> /dev/null
   sudo systemctl start vboxweb.service &> /dev/null
   if lsmod | grep -i vbox; then
@@ -251,7 +276,7 @@ instalar_temas_adicionais()
   for pkg in ${TEMAS[@]}; do
     if ! pacman -Q | grep -iq $pkg; then
       echo -e "${AMARELO}[INFO] - Instalando o pacote $pkg...${SEM_COR}"
-      yay -S --noconfirm $pkg
+      yay -S --noeditmenu --nodiffmenu --norebuild --noredownload --nocleanmenu --noconfirm $pkg
       if pacman -Q | grep -iq $pkg; then
         echo -e "${VERDE}[INFO] - O pacote $pkg foi instalado.${SEM_COR}"
       else
@@ -281,9 +306,11 @@ customizar_nautilus()
     echo file://$_alias >> $FILE
   done
   echo -e "${AMARELO}[INFO] - Aplicando as preferências à dock do sistema...${SEM_COR}"
-  gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'focus-minimize-or-previews'
   gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+  gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'focus-minimize-or-previews'
+  gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 40
   gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+  gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'LEFT'
   gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
   gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
   echo -e "${VERDE}[INFO] - Preferências aplicadas.${SEM_COR}"
@@ -318,7 +345,7 @@ atualizacao_limpeza_sistema()
 {
   echo -e "${AMARELO}[INFO] - Finalizando e aplicando atualizações...${SEM_COR}"
   flatpak update -y &> /dev/null
-  yay -Y --devel --noeditmenu --nodiffmenu --norebuild --noredownload --cleanmenu --cleanafter --removemake --nosudoloop --save
+  yay -Y --cleanafter --removemake --nosudoloop --save
   yay -Syu --noconfirm && yay -Yc --noconfirm
   sudo pacman -Syu --noconfirm &> /dev/null
   rm -rf $DIRETORIO_PACOTES_GIT $DIRETORIO_PACOTES_TAR $DIRETORIO_WALLPAPERS &> /dev/null
@@ -341,6 +368,7 @@ case $1 in
     instalar_yay
     instalar_pacotes_yay
     instalar_suporte_jogos
+    instalar_pacotes_dev
     instalar_suporte_virtualbox
     instalar_temas_adicionais
     customizar_nautilus
@@ -355,6 +383,7 @@ case $1 in
     instalar_pacotes_flatpak
     instalar_yay
     instalar_pacotes_yay
+    instalar_pacotes_dev
     instalar_temas_adicionais
     customizar_nautilus
     download_wallpapers
@@ -368,7 +397,6 @@ case $1 in
     instalar_pacotes_flatpak
     instalar_yay
     instalar_pacotes_yay
-    customizar_nautilus
     instalar_driver_wifi_usb
     atualizacao_limpeza_sistema
     ;;
