@@ -280,7 +280,9 @@ su -
 EDITOR=nano visudo
 ```
 
-> **Note** **Descomentar linha:**
+> **Note** 
+> 
+> **Descomentar linha:**
 > - %wheel ALL=(ALL:ALL) ALL
 
 ```
