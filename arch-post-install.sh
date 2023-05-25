@@ -261,6 +261,11 @@ instalar_temas_adicionais()
       echo -e "${VERDE}[INFO] - O pacote $pkg já está instalado.${SEM_COR}"
     fi
   done
+  echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados. Lembre-se de alterar o tema através do gnome-tweaks...${SEM_COR}"
+}
+
+customizar_nautilus()
+{
   # Customização do Nautilus
   echo -e "${AMARELO}[INFO] - Criando diretórios pessoais...${SEM_COR}"
   if test -f "$FILE"; then
@@ -275,7 +280,17 @@ instalar_temas_adicionais()
   for _alias in "${ALIASES[@]}"; do
     echo file://$_alias >> $FILE
   done
-  echo -e "${VERDE}[INFO] - Temas e fontes adicionais foram instalados. Lembre-se de alterar o tema através do gnome-tweaks...${SEM_COR}"
+  echo -e "${AMARELO}[INFO] - Aplicando as preferências à dock do sistema...${SEM_COR}"
+  gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'focus-minimize-or-previews'
+  gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+  gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+  gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+  gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
+  echo -e "${VERDE}[INFO] - Preferências aplicadas.${SEM_COR}"
+}
+
+download_wallpapers()
+{
   # Arch Linux Wallpapers
   echo -e "${AMARELO}[INFO] - Baixando álbum de wallpapers Arch Linux...${SEM_COR}"
   [[ ! -d "$DIRETORIO_WALLPAPERS" ]] && mkdir "$DIRETORIO_WALLPAPERS"
@@ -284,12 +299,6 @@ instalar_temas_adicionais()
   echo -e "${AMARELO}[INFO] - Descompactando pacote para "$HOME/.local/share/backgrounds/"...${SEM_COR}"
   unzip -qj *.zip -d $HOME/.local/share/backgrounds/
   echo -e "${VERDE}[INFO] - Wallpapers baixados com sucesso! Não se esqueça de escolher um bem legal em Configurações -> Plano de fundo... ${SEM_COR}"
-  echo -e "${AMARELO}[INFO] - Aplicando as preferências à dock do sistema...${SEM_COR}"
-  gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'focus-minimize-or-previews'
-  gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
-  gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
-  gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
-  gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
 }
 
 instalar_driver_wifi_usb() # TP-Link Archer T2U Plus drivers
@@ -334,6 +343,8 @@ case $1 in
     instalar_suporte_jogos
     instalar_suporte_virtualbox
     instalar_temas_adicionais
+    customizar_nautilus
+    download_wallpapers
     instalar_driver_wifi_usb
     atualizacao_limpeza_sistema
     ;;
@@ -345,6 +356,8 @@ case $1 in
     instalar_yay
     instalar_pacotes_yay
     instalar_temas_adicionais
+    customizar_nautilus
+    download_wallpapers
     instalar_driver_wifi_usb
     atualizacao_limpeza_sistema
     ;;
@@ -355,6 +368,7 @@ case $1 in
     instalar_pacotes_flatpak
     instalar_yay
     instalar_pacotes_yay
+    customizar_nautilus
     instalar_driver_wifi_usb
     atualizacao_limpeza_sistema
     ;;
