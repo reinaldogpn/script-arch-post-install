@@ -445,4 +445,6 @@ cp *.jpeg *.jpg *.png $HOME/.local/share/backgrounds/
 
 https://imgur.com/a/Tr4Z6kO
 
-### Créditos a [Diolinux](https://github.com/Diolinux): [YouTube](https://www.youtube.com/DiolinuxBr) | [Blog](https://diolinux.com.br/sistemas-operacionais/arch-linux/como-instalar-arch-linux-tutorial-iniciantes.html)
+#
+
+_Créditos a [Diolinux](https://github.com/Diolinux): [YouTube](https://www.youtube.com/DiolinuxBr) | [Blog](https://diolinux.com.br/sistemas-operacionais/arch-linux/como-instalar-arch-linux-tutorial-iniciantes.html)_
