@@ -284,6 +284,12 @@ instalar_temas_adicionais()
   echo -e "${AMARELO}[INFO] - Descompactando pacote para "$HOME/.local/share/backgrounds/"...${SEM_COR}"
   unzip -qj *.zip -d $HOME/.local/share/backgrounds/
   echo -e "${VERDE}[INFO] - Wallpapers baixados com sucesso! Não se esqueça de escolher um bem legal em Configurações -> Plano de fundo... ${SEM_COR}"
+  echo -e "${AMARELO}[INFO] - Aplicando as preferências à dock do sistema...${SEM_COR}"
+  gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'focus-minimize-or-previews'
+  gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+  gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+  gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+  gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
 }
 
 instalar_driver_wifi_usb() # TP-Link Archer T2U Plus drivers
