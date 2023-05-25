@@ -296,6 +296,10 @@ ping -c 4 google.com
 ### Se você utiliza Wi-Fi, você pode utilizar o iwctl.
 
 ```
+sudo systemctl start iwd
+```
+
+```
 iwctl
 ```
 
