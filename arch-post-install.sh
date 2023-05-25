@@ -317,15 +317,41 @@ atualizacao_limpeza_sistema()
 
 # ================================================================================================================================================== #
 # *** Execução ***
-realizar_testes
-instalar_pacotes_pacman
-add_repositorios_flatpak
-instalar_pacotes_flatpak
-instalar_yay
-instalar_pacotes_yay
-instalar_suporte_jogos
-instalar_suporte_virtualbox
-instalar_temas_adicionais
-instalar_driver_wifi_usb
-atualizacao_limpeza_sistema
-# ================================================================================================================================================== #
+case $1 in
+    -f|--full) 
+    realizar_testes
+    instalar_pacotes_pacman
+    add_repositorios_flatpak
+    instalar_pacotes_flatpak
+    instalar_yay
+    instalar_pacotes_yay
+    instalar_suporte_jogos
+    instalar_suporte_virtualbox
+    instalar_temas_adicionais
+    instalar_driver_wifi_usb
+    atualizacao_limpeza_sistema
+    ;;
+    -m|--medium)
+    realizar_testes
+    instalar_pacotes_pacman
+    add_repositorios_flatpak
+    instalar_pacotes_flatpak
+    instalar_yay
+    instalar_pacotes_yay
+    instalar_temas_adicionais
+    instalar_driver_wifi_usb
+    atualizacao_limpeza_sistema
+    ;;
+    -s|--simple)
+    realizar_testes
+    instalar_pacotes_pacman
+    add_repositorios_flatpak
+    instalar_pacotes_flatpak
+    instalar_yay
+    instalar_pacotes_yay
+    instalar_driver_wifi_usb
+    atualizacao_limpeza_sistema
+    ;;
+    *) echo -e "Você pode escolher o modo de instalação utilizando o parâmetro ${AMARELO}-f${SEM_COR} ou ${AMARELO}--full${SEM_COR} para uma instalação completa ou ${AMARELO}-m${SEM_COR} ou ${AMARELO}--medium${SEM_COR} para uma instalação simples com temas adicionais ${AMARELO}-s${SEM_COR} ou ${AMARELO}--simples${SEM_COR} para uma instalação mais simples."
+    ;;
+esac 
